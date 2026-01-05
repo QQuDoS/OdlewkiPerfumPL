@@ -13,9 +13,9 @@
         .cart-btn { position: fixed; top: 20px; right: 20px; background: #d4af37; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; z-index: 1000; }
         .cart-count { background: #e74c3c; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; font-size: 12px; }
         #cart-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; }
-        .cart-content { background: white; max-width: 1200px; margin: 50px auto; padding: 30px; border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; align-items: start; }
+        .cart-content { background: white; max-width: 1200px; margin: 0 auto; padding: 30px; border-radius: 0 0 12px 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; align-items: start; }
         .cart-close { position: absolute; right: 20px; top: 20px; font-size: 28px; cursor: pointer; }
-        .cart-title { grid-column: 1 / -1; position: relative; background: #f9f9f9; margin: -30px -30px 20px -30px; padding: 25px 30px; border-bottom: 1px solid #ddd; border-radius: 12px 12px 0 0; }
+        .cart-title { position: relative; background: #f9f9f9; margin: 50px 50px 0 50px; padding: 25px 30px; border-bottom: 1px solid #ddd; border-radius: 12px 12px 0 0; }
         .cart-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .cart-item-info { flex: 1; }
         .cart-item-remove { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
@@ -54,8 +54,8 @@
         .contact-icons a:hover { transform: scale(1.1); }
         .contact-icons img { width: 50px; height: 50px; }
         @media (max-width: 768px) {
-            .cart-content { grid-template-columns: 1fr; padding: 20px; }
-            .cart-title { margin: -20px -20px 20px -20px; padding: 20px; }
+            .cart-title { margin: 50px 20px 0 20px; padding: 20px; }
+            .cart-content { grid-template-columns: 1fr; padding: 20px; margin: 0 20px 50px 20px; }
         }
     </style>
 </head>
@@ -67,11 +67,11 @@
 </header>
 
 <div id="cart-modal" onclick="if(event.target.id === 'cart-modal') closeCart()">
+    <div class="cart-title">
+        <h2 style="margin: 0 0 0 0;">Mój Koszyk</h2>
+        <span class="cart-close" onclick="closeCart()">&times;</span>
+    </div>
     <div class="cart-content">
-        <div class="cart-title">
-            <h2 style="margin: 0 0 0 0;">Mój Koszyk</h2>
-            <span class="cart-close" onclick="closeCart()">&times;</span>
-        </div>
         <div>
             <h3 style="margin-top: 0;">Skład koszyka</h3>
             <div id="cart-items"></div>
