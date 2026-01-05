@@ -15,6 +15,7 @@
         #cart-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; }
         .cart-content { background: white; max-width: 1200px; margin: 50px auto; padding: 30px; border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; align-items: start; }
         .cart-close { position: absolute; right: 20px; top: 20px; font-size: 28px; cursor: pointer; }
+        .cart-title { grid-column: 1 / -1; position: relative; background: #f9f9f9; margin: -30px -30px 20px -30px; padding: 25px 30px; border-bottom: 1px solid #ddd; border-radius: 12px 12px 0 0; }
         .cart-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .cart-item-info { flex: 1; }
         .cart-item-remove { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
@@ -66,7 +67,7 @@
 
 <div id="cart-modal" onclick="if(event.target.id === 'cart-modal') closeCart()">
     <div class="cart-content">
-        <div style="grid-column: 1 / -1; position: relative; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+        <div class="cart-title">
             <h2 style="margin: 0 0 0 0;">Mój Koszyk</h2>
             <span class="cart-close" onclick="closeCart()">&times;</span>
         </div>
