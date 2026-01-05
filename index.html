@@ -189,15 +189,13 @@ function updateCartDisplay() {
     const selectedShipping = document.querySelector('input[name="shipping"]:checked').value;
     let shippingCost = 0;
     
-    if (subtotal >= data.shipping?.min_order) {
-        switch(selectedShipping) {
-            case 'inpost': shippingCost = data.shipping.inpost; break;
-            case 'orlen': shippingCost = data.shipping.orlen; break;
-            case 'dhl': shippingCost = data.shipping.dhl; break;
-            case 'dpd': shippingCost = data.shipping.dpd; break;
-            case 'olx':
-            case 'allegro': shippingCost = 0; break;
-        }
+    switch(selectedShipping) {
+        case 'inpost': shippingCost = data.shipping?.inpost || 0; break;
+        case 'orlen': shippingCost = data.shipping?.orlen || 0; break;
+        case 'dhl': shippingCost = data.shipping?.dhl || 0; break;
+        case 'dpd': shippingCost = data.shipping?.dpd || 0; break;
+        case 'olx':
+        case 'allegro': shippingCost = 0; break;
     }
     
     document.getElementById('subtotal').textContent = subtotal.toFixed(2);
