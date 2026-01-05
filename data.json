@@ -1,0 +1,144 @@
+{
+  "shipping": {
+    "inpost": 12,
+    "orlen": 12,
+    "dhl": 10,
+    "dpd": 5,
+    "olx": "wg cennika",
+    "allegro": "wg cennika",
+    "min_order": 40,
+    "bottles": 3
+  },
+
+  "female": [
+    {
+      "name": "Prada Paradoxe Intense",
+      "price": 6.0,
+      "id": 83988,
+      "url": "https://www.fragrantica.pl/perfumy/Prada/Prada-Paradoxe-Intense-83988.html"
+    },
+    {
+      "name": "Dolce&Gabbana Light Blue Eau Intense",
+      "price": 4.5,
+      "id": 44034,
+      "url": "https://www.fragrantica.pl/perfumy/Dolce-Gabbana/Light-Blue-Eau-Intense-44034.html"
+    },
+    {
+      "name": "Paco Rabanne Fame",
+      "price": 5.5,
+      "id": 74962,
+      "url": "https://www.fragrantica.pl/perfumy/Rabanne/Fame-74962.html"
+    },
+    {
+      "name": "Paco Rabanne Million Gold for her",
+      "price": 5.5,
+      "id": 95640,
+      "url": "https://www.fragrantica.pl/perfumy/Rabanne/Million-Gold-For-Her-95640.html"
+    },
+    {
+      "name": "Emporio Armani Because It’s You",
+      "price": 5.0,
+      "id": 45257,
+      "url": "https://www.fragrantica.pl/perfumy/Giorgio-Armani/Emporio-Armani-Because-It-s-You-45257.html"
+    },
+    {
+      "name": "Giorgio Armani Si Passione Red Musk",
+      "price": 5.5,
+      "id": 103518,
+      "url": "https://www.fragrantica.pl/perfumy/Giorgio-Armani/Si-Passione-Red-Musk-103518.html"
+    },
+    {
+      "name": "Giorgio Armani Acqua di Gioia",
+      "price": 4.7,
+      "id": 8442,
+      "url": "https://www.fragrantica.pl/perfumy/Giorgio-Armani/Acqua-di-Gioia-8442.html"
+    },
+    {
+      "name": "Dior J'adore Eau De Parfum",
+      "price": 7.0,
+      "id": 210,
+      "url": "https://www.fragrantica.pl/perfumy/Dior/J-adore-210.html"
+    },
+    {
+      "name": "YSL Black Opium Eau De Parfum",
+      "price": 5.5,
+      "id": 25324,
+      "url": "https://www.fragrantica.pl/perfumy/Yves-Saint-Laurent/Black-Opium-25324.html"
+    },
+    {
+      "name": "Carolina Herrera Good Girl",
+      "price": 6.0,
+      "id": 39681,
+      "url": "https://www.fragrantica.pl/perfumy/Carolina-Herrera/Good-Girl-39681.html"
+    },
+    {
+      "name": "Narciso Rodriguez Pure Musc For Her",
+      "price": 4.7,
+      "id": 53441,
+      "url": "https://www.fragrantica.pl/perfumy/Narciso-Rodriguez/Pure-Musc-For-Her-53441.html"
+    },
+    {
+      "name": "Jean Paul Gaultier Divine Le Parfum",
+      "price": 5.5,
+      "id": 93887,
+      "url": "https://www.fragrantica.pl/perfumy/Jean-Paul-Gaultier/Gaultier-Divine-Le-Parfum-93887.html"
+    }
+  ],
+
+  "male": [
+    {
+      "name": "Jean Paul Gaultier Paradise Garden",
+      "price": 4.5,
+      "id": 88836,
+      "url": "https://www.fragrantica.pl/perfumy/Jean-Paul-Gaultier/Le-Beau-Paradise-Garden-88836.html"
+    },
+    {
+      "name": "Versace Eros Flame",
+      "price": 3.5,
+      "id": 52180,
+      "url": "https://www.fragrantica.pl/perfumy/Versace/Eros-Flame-52180.html"
+    },
+    {
+      "name": "YSL Y Eau De Parfum",
+      "price": 5.0,
+      "id": 50757,
+      "url": "https://www.fragrantica.pl/perfumy/Yves-Saint-Laurent/Y-Eau-de-Parfum-50757.html"
+    },
+    {
+      "name": "Emporio Armani Stronger With You Parfum",
+      "price": 5.5,
+      "id": 100895,
+      "url": "https://www.fragrantica.pl/perfumy/Giorgio-Armani/Emporio-Armani-Stronger-With-You-Parfum-100895.html"
+    },
+    {
+      "name": "Paco Rabanne Million Gold Elixir",
+      "price": 5.5,
+      "id": 102755,
+      "url": "https://www.fragrantica.pl/perfumy/Rabanne/Million-Gold-Elixir-102755.html"
+    },
+    {
+      "name": "Terre d'Hermes Eau Givree",
+      "price": 4.7,
+      "id": 72439,
+      "url": "https://www.fragrantica.pl/perfumy/Hermes/Terre-d-Hermes-Eau-Givree-72439.html"
+    },
+    {
+      "name": "Dior Sauvage Elixir",
+      "price": 9.0,
+      "id": 68415,
+      "url": "https://www.fragrantica.pl/perfumy/Dior/Sauvage-Elixir-68415.html"
+    },
+    {
+      "name": "Prada Paradigme",
+      "price": 5.0,
+      "id": 110661,
+      "url": "https://www.fragrantica.pl/perfumy/Prada/Paradigme-110661.html"
+    },
+    {
+      "name": "Hugo Boss Bottled Beyond",
+      "price": 4.7,
+      "id": 106404,
+      "url": "https://www.fragrantica.pl/perfumy/Hugo-Boss/Boss-Bottled-Beyond-106404.html"
+    }
+  ]
+}

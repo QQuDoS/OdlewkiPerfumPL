@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Stragan z Odlewkami Perfum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; }
+        header { background: #222; color: white; padding: 20px; text-align: center; }
+        h2 { margin-top: 40px; text-align: center; }
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: 0.2s; text-align: center; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .card img { width: 100%; max-width: 180px; border-radius: 8px; margin-bottom: 10px; }
+        .name a { font-size: 18px; font-weight: bold; color: #222; text-decoration: none; }
+        .name a:hover { text-decoration: underline; }
+        .price { font-size: 16px; margin-bottom: 10px; }
+        .sizes { font-size: 14px; color: #444; }
+        .shipping { background: #fff3cd; padding: 20px; border-radius: 10px; margin-top: 40px; }
+        .contact { background: #222; color: white; padding: 30px; margin-top: 50px; text-align: center; }
+        .contact a { color: #ffd700; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Stragan z Odlewkami Perfum</h1>
+</header>
+
+<div class="container">
+
+    <div id="shipping-box" class="shipping"></div>
+
+    <h2>Damskie</h2>
+    <div id="female-grid" class="grid"></div>
+
+    <h2>Męskie</h2>
+    <div id="male-grid" class="grid"></div>
+
+</div>
+
+<div class="contact">
+    <h2>Kontakt</h2>
+    <p><strong>Email:</strong> <a href="mailto:perfumydekant@gmail.com">perfumydekant@gmail.com</a></p>
+    <p><strong>Wykop:</strong> <a href="https://wykop.pl/wiadomosci/QuDos" target="_blank">wykop.pl/wiadomosci/QuDos</a></p>
+</div>
+
+<script>
+async function loadData() {
+    const response = await fetch("data.json");
+    const data = await response.json();
+
+    // Wysyłka
+    document.getElementById("shipping-box").innerHTML = `
+        <h3>📦 Wysyłka</h3>
+        <ul>
+            <li>InPost — ${data.shipping.inpost} zł</li>
+            <li>Orlen Paczka — ${data.shipping.orlen} zł</li>
+            <li>DHL — ${data.shipping.dhl} zł</li>
+            <li>DPD — ${data.shipping.dpd} zł</li>
+            <li>OLX — ${data.shipping.olx}</li>
+            <li>Allegro Lokalnie — ${data.shipping.allegro}</li>
+        </ul>
+        <strong>Wysyłam od ${data.shipping.min_order} zł</strong><br>
+        <strong>Flakony 3/5/10 ml = +${data.shipping.bottles} zł</strong>
+    `;
+
+    // Funkcja generująca kartę
+    function createCard(item) {
+        const img = `https://fimgs.net/mdimg/perfume/375x500.${item.id}.jpg`;
+        return `
+            <div class="card">
+                <img src="${img}">
+                <div class="name"><a href="${item.url}" target="_blank">${item.name}</a></div>
+                <div class="price">${item.price} zł/ml</div>
+                <div class="sizes">
+                    3 ml: ${(item.price * 3).toFixed(1)} zł<br>
+                    5 ml: ${(item.price * 5).toFixed(1)} zł<br>
+                    10 ml: ${(item.price * 10).toFixed(1)} zł
+                </div>
+            </div>
+        `;
+    }
+
+    // Damskie
+    document.getElementById("female-grid").innerHTML =
+        data.female.map(createCard).join("");
+
+    // Męskie
+    document.getElementById("male-grid").innerHTML =
+        data.male.map(createCard).join("");
+}
+
+loadData();
+</script>
+
+</body>
+</html>
