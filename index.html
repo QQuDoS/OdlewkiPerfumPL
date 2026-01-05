@@ -13,7 +13,7 @@
         .cart-btn { position: fixed; top: 20px; right: 20px; background: #d4af37; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; z-index: 1000; }
         .cart-count { background: #e74c3c; color: white; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-left: 5px; font-size: 12px; }
         #cart-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; overflow-y: auto; }
-        .cart-content { background: white; max-width: 600px; margin: 50px auto; padding: 30px; border-radius: 12px; }
+        .cart-content { background: white; max-width: 1000px; margin: 50px auto; padding: 30px; border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
         .cart-close { float: right; font-size: 28px; cursor: pointer; }
         .cart-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
         .cart-item-info { flex: 1; }
@@ -48,6 +48,9 @@
         .shipping { background: #fff3cd; padding: 20px; border-radius: 10px; margin-top: 40px; }
         .contact { background: #222; color: white; padding: 30px; margin-top: 50px; text-align: center; }
         .contact a { color: #ffd700; font-weight: bold; }
+        @media (max-width: 768px) {
+            .cart-content { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -61,39 +64,50 @@
 <div id="cart-modal" onclick="if(event.target.id === 'cart-modal') closeCart()">
     <div class="cart-content">
         <span class="cart-close" onclick="closeCart()">&times;</span>
-        <h2>Mój Koszyk</h2>
-        <div id="cart-items"></div>
-        <div class="cart-summary">
-            <div class="shipping-options">
-                <strong>Sposób wysyłki:</strong>
-                <div class="shipping-option">
-                    <input type="radio" id="shipping-inpost" name="shipping" value="inpost" checked onchange="updateCartDisplay()">
-                    <label for="shipping-inpost">📦 InPost - <span id="inpost-price">0</span> zł</label>
+        <div>
+            <h2>Mój Koszyk</h2>
+            <div id="cart-items"></div>
+            <div class="cart-summary">
+                <div class="shipping-options">
+                    <strong>Sposób wysyłki:</strong>
+                    <div class="shipping-option">
+                        <input type="radio" id="shipping-inpost" name="shipping" value="inpost" checked onchange="updateCartDisplay()">
+                        <label for="shipping-inpost">📦 InPost - <span id="inpost-price">0</span> zł</label>
+                    </div>
+                    <div class="shipping-option">
+                        <input type="radio" id="shipping-orlen" name="shipping" value="orlen" onchange="updateCartDisplay()">
+                        <label for="shipping-orlen">📦 Orlen Paczka - <span id="orlen-price">0</span> zł</label>
+                    </div>
+                    <div class="shipping-option">
+                        <input type="radio" id="shipping-dhl" name="shipping" value="dhl" onchange="updateCartDisplay()">
+                        <label for="shipping-dhl">📦 DHL - <span id="dhl-price">0</span> zł</label>
+                    </div>
+                    <div class="shipping-option">
+                        <input type="radio" id="shipping-dpd" name="shipping" value="dpd" onchange="updateCartDisplay()">
+                        <label for="shipping-dpd">📦 DPD - <span id="dpd-price">0</span> zł</label>
+                    </div>
+                    <div class="shipping-option">
+                        <input type="radio" id="shipping-olx" name="shipping" value="olx" onchange="updateCartDisplay()">
+                        <label for="shipping-olx">🏪 OLX - <span id="olx-price">brak</span></label>
+                    </div>
+                    <div class="shipping-option">
+                        <input type="radio" id="shipping-allegro" name="shipping" value="allegro" onchange="updateCartDisplay()">
+                        <label for="shipping-allegro">🏪 Allegro Lokalnie - <span id="allegro-price">brak</span></label>
+                    </div>
                 </div>
-                <div class="shipping-option">
-                    <input type="radio" id="shipping-orlen" name="shipping" value="orlen" onchange="updateCartDisplay()">
-                    <label for="shipping-orlen">📦 Orlen Paczka - <span id="orlen-price">0</span> zł</label>
+                <div><strong>Wartość:</strong> <span id="subtotal">0</span> zł</div>
+                <div class="cart-shipping"><strong>Wysyłka:</strong> <span id="shipping-cost">0</span> zł</div>
+                <div class="cart-total"><strong>Razem:</strong> <span id="total">0</span> zł</div>
+                <div id="order-summary" style="display: none; background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; font-family: monospace; font-size: 12px;"></div>
+                <button onclick="generateOrderSummary()" style="width: 100%; padding: 12px; margin-top: 20px; background: #27ae60; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">📋 Pokaż podsumowanie</button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <button onclick="copyToClipboard()" id="copy-btn" style="padding: 12px; background: #3498db; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none;">📋 Skopiuj</button>
+                    <button onclick="sendToWhatsApp()" id="whatsapp-btn" style="padding: 12px; background: #25D366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none; color: white;">💬 WhatsApp</button>
                 </div>
-                <div class="shipping-option">
-                    <input type="radio" id="shipping-dhl" name="shipping" value="dhl" onchange="updateCartDisplay()">
-                    <label for="shipping-dhl">📦 DHL - <span id="dhl-price">0</span> zł</label>
-                </div>
-                <div class="shipping-option">
-                    <input type="radio" id="shipping-dpd" name="shipping" value="dpd" onchange="updateCartDisplay()">
-                    <label for="shipping-dpd">📦 DPD - <span id="dpd-price">0</span> zł</label>
-                </div>
-                <div class="shipping-option">
-                    <input type="radio" id="shipping-olx" name="shipping" value="olx" onchange="updateCartDisplay()">
-                    <label for="shipping-olx">🏪 OLX - <span id="olx-price">brak</span></label>
-                </div>
-                <div class="shipping-option">
-                    <input type="radio" id="shipping-allegro" name="shipping" value="allegro" onchange="updateCartDisplay()">
-                    <label for="shipping-allegro">🏪 Allegro Lokalnie - <span id="allegro-price">brak</span></label>
-                </div>
+                <button onclick="checkout()" style="width: 100%; padding: 12px; margin-top: 10px; background: #d4af37; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">Przejdź do zamówienia</button>
             </div>
-            <div><strong>Wartość:</strong> <span id="subtotal">0</span> zł</div>
-            <div class="cart-shipping"><strong>Wysyłka:</strong> <span id="shipping-cost">0</span> zł</div>
-            <div class="cart-total"><strong>Razem:</strong> <span id="total">0</span> zł</div>
+        </div>
+        <div>
             <div class="buyer-form">
                 <h3>👤 Dane kupującego</h3>
                 <div class="form-group">
@@ -113,13 +127,6 @@
                     <input type="text" id="buyer-address" placeholder="ul. Przykładowa 1, 00-001 Warszawa" onchange="updateCartDisplay()">
                 </div>
             </div>
-            <div id="order-summary" style="display: none; background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; font-family: monospace; font-size: 12px;"></div>
-            <button onclick="generateOrderSummary()" style="width: 100%; padding: 12px; margin-top: 20px; background: #27ae60; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">📋 Pokaż podsumowanie</button>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
-                <button onclick="copyToClipboard()" id="copy-btn" style="padding: 12px; background: #3498db; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none;">📋 Skopiuj</button>
-                <button onclick="sendToWhatsApp()" id="whatsapp-btn" style="padding: 12px; background: #25D366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none; color: white;">💬 WhatsApp</button>
-            </div>
-            <button onclick="checkout()" style="width: 100%; padding: 12px; margin-top: 10px; background: #d4af37; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">Przejdź do zamówienia</button>
         </div>
     </div>
 </div>
@@ -396,6 +403,9 @@ async function loadData() {
     // Męskie
     document.getElementById("male-grid").innerHTML =
         data.male.map(createCard).join("");
+    
+    // Zaktualizuj wyświetlanie cen wysyłki
+    updateCartDisplay();
 }
 
 loadData();
