@@ -91,7 +91,10 @@
             <div class="cart-total"><strong>Razem:</strong> <span id="total">0</span> zł</div>
             <div id="order-summary" style="display: none; background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #ddd; white-space: pre-wrap; word-break: break-word; font-family: monospace; font-size: 12px;"></div>
             <button onclick="generateOrderSummary()" style="width: 100%; padding: 12px; margin-top: 20px; background: #27ae60; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">📋 Pokaż podsumowanie</button>
-            <button onclick="copyToClipboard()" id="copy-btn" style="width: 100%; padding: 12px; margin-top: 10px; background: #3498db; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none;">📋 Skopiuj wiadomość</button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                <button onclick="copyToClipboard()" id="copy-btn" style="padding: 12px; background: #3498db; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none;">📋 Skopiuj</button>
+                <button onclick="sendToWhatsApp()" id="whatsapp-btn" style="padding: 12px; background: #25D366; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px; display: none; color: white;">💬 WhatsApp</button>
+            </div>
             <button onclick="checkout()" style="width: 100%; padding: 12px; margin-top: 10px; background: #d4af37; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 16px;">Przejdź do zamówienia</button>
         </div>
     </div>
@@ -112,6 +115,7 @@
 <div class="contact">
     <h2>Kontakt</h2>
     <p><strong>Email:</strong> <a href="mailto:perfumydekant@gmail.com">perfumydekant@gmail.com</a></p>
+    <p><strong>WhatsApp:</strong> <a href="https://wa.me/48517240800" target="_blank">+48 517 240 800</a></p>
     <p><strong>Wykop:</strong> <a href="https://wykop.pl/wiadomosci/QuDos" target="_blank">wykop.pl/wiadomosci/QuDos</a></p>
 </div>
 
@@ -234,6 +238,7 @@ Email: perfumydekant@gmail.com
     document.getElementById('order-summary').textContent = summary;
     document.getElementById('order-summary').style.display = 'block';
     document.getElementById('copy-btn').style.display = 'block';
+    document.getElementById('whatsapp-btn').style.display = 'block';
 }
 
 function copyToClipboard() {
@@ -250,6 +255,13 @@ function copyToClipboard() {
     }).catch(() => {
         alert('Błąd przy kopiowaniu. Spróbuj zaznaczić tekst ręcznie.');
     });
+}
+
+function sendToWhatsApp() {
+    const summary = document.getElementById('order-summary').textContent;
+    const encodedMessage = encodeURIComponent(summary);
+    const whatsappUrl = `https://wa.me/48517240800?text=${encodedMessage}`;
+    window.open(whatsappUrl, '_blank');
 }
 
 function checkout() {
