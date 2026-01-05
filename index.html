@@ -21,6 +21,10 @@
         .cart-summary { background: #f5f5f5; padding: 20px; border-radius: 8px; margin-top: 20px; }
         .cart-total { font-size: 20px; font-weight: bold; margin: 10px 0; }
         .cart-shipping { margin: 10px 0; }
+        .shipping-options { background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border: 1px solid #ddd; }
+        .shipping-option { margin: 10px 0; }
+        .shipping-option input { margin-right: 10px; }
+        .shipping-option label { cursor: pointer; }
         .add-to-cart-section { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-top: 10px; }
         .size-select { margin: 10px 0; }
         .size-select select { padding: 8px; border-radius: 4px; border: 1px solid #ddd; }
@@ -55,6 +59,33 @@
         <h2>Mój Koszyk</h2>
         <div id="cart-items"></div>
         <div class="cart-summary">
+            <div class="shipping-options">
+                <strong>Sposób wysyłki:</strong>
+                <div class="shipping-option">
+                    <input type="radio" id="shipping-inpost" name="shipping" value="inpost" checked onchange="updateCartDisplay()">
+                    <label for="shipping-inpost">📦 InPost - <span id="inpost-price">0</span> zł</label>
+                </div>
+                <div class="shipping-option">
+                    <input type="radio" id="shipping-orlen" name="shipping" value="orlen" onchange="updateCartDisplay()">
+                    <label for="shipping-orlen">📦 Orlen Paczka - <span id="orlen-price">0</span> zł</label>
+                </div>
+                <div class="shipping-option">
+                    <input type="radio" id="shipping-dhl" name="shipping" value="dhl" onchange="updateCartDisplay()">
+                    <label for="shipping-dhl">📦 DHL - <span id="dhl-price">0</span> zł</label>
+                </div>
+                <div class="shipping-option">
+                    <input type="radio" id="shipping-dpd" name="shipping" value="dpd" onchange="updateCartDisplay()">
+                    <label for="shipping-dpd">📦 DPD - <span id="dpd-price">0</span> zł</label>
+                </div>
+                <div class="shipping-option">
+                    <input type="radio" id="shipping-olx" name="shipping" value="olx" onchange="updateCartDisplay()">
+                    <label for="shipping-olx">🏪 OLX - <span id="olx-price">brak</span></label>
+                </div>
+                <div class="shipping-option">
+                    <input type="radio" id="shipping-allegro" name="shipping" value="allegro" onchange="updateCartDisplay()">
+                    <label for="shipping-allegro">🏪 Allegro Lokalnie - <span id="allegro-price">brak</span></label>
+                </div>
+            </div>
             <div><strong>Wartość:</strong> <span id="subtotal">0</span> zł</div>
             <div class="cart-shipping"><strong>Wysyłka:</strong> <span id="shipping-cost">0</span> zł</div>
             <div class="cart-total"><strong>Razem:</strong> <span id="total">0</span> zł</div>
@@ -141,7 +172,27 @@ function updateCartDisplay() {
         `;
     }).join('');
 
-    const shippingCost = subtotal >= data.shipping?.min_order ? data.shipping.inpost : 0;
+    // Aktualizuj ceny wysyłki
+    document.getElementById('inpost-price').textContent = data.shipping?.inpost || '0';
+    document.getElementById('orlen-price').textContent = data.shipping?.orlen || '0';
+    document.getElementById('dhl-price').textContent = data.shipping?.dhl || '0';
+    document.getElementById('dpd-price').textContent = data.shipping?.dpd || '0';
+
+    // Pobranie wybranego sposobu wysyłki
+    const selectedShipping = document.querySelector('input[name="shipping"]:checked').value;
+    let shippingCost = 0;
+    
+    if (subtotal >= data.shipping?.min_order) {
+        switch(selectedShipping) {
+            case 'inpost': shippingCost = data.shipping.inpost; break;
+            case 'orlen': shippingCost = data.shipping.orlen; break;
+            case 'dhl': shippingCost = data.shipping.dhl; break;
+            case 'dpd': shippingCost = data.shipping.dpd; break;
+            case 'olx':
+            case 'allegro': shippingCost = 0; break;
+        }
+    }
+    
     document.getElementById('subtotal').textContent = subtotal.toFixed(2);
     document.getElementById('shipping-cost').textContent = shippingCost.toFixed(2);
     document.getElementById('total').textContent = (subtotal + shippingCost).toFixed(2);
@@ -152,9 +203,11 @@ function checkout() {
         alert('Koszyk jest pusty!');
         return;
     }
+    const selectedShipping = document.querySelector('input[name="shipping"]:checked').value;
+    const selectedShippingLabel = document.querySelector(`label[for="shipping-${selectedShipping}"]`).textContent;
     const total = document.getElementById('total').textContent;
     const items = cart.map(item => `${item.name} (${item.size}ml x${item.quantity})`).join(', ');
-    alert(`Zamówienie:\n${items}\n\nRazem: ${total} zł\n\nProszę wyślij zamówienie na: perfumydekant@gmail.com`);
+    alert(`Zamówienie:\n${items}\n\nSposób wysyłki: ${selectedShippingLabel}\nRazem: ${total} zł\n\nProszę wyślij zamówienie na: perfumydekant@gmail.com`);
 }
 
 async function loadData() {
