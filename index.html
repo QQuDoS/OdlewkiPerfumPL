@@ -308,7 +308,11 @@ Koszt wysyłki:           ${shippingCost} zł
 RAZEM:                    ${total} zł
 ═══════════════════════════════════════
 
+Zamówienie proszę wysłać na:
 Email: perfumydekant@gmail.com
+WhatsApp: +48 517 240 800
+Prywatną wiadomością na Wykopie: QuDos
+═══════════════════════════════════════
 `;
     
     document.getElementById('order-summary').textContent = summary;
@@ -351,9 +355,9 @@ function checkout() {
         return;
     }
     navigator.clipboard.writeText(summary).then(() => {
-        alert('Podsumowanie skopiowane!\n\nWyślij je na: perfumydekant@gmail.com');
+        alert('Podsumowanie skopiowane!\n\nZamówienie proszę wysłać na:\nEmail: perfumydekant@gmail.com\nWhatsApp: +48 517 240 800\nPrywatną wiadomością na Wykopie: QuDos');
     }).catch(() => {
-        alert('Skopiuj ręcznie i wyślij na: perfumydekant@gmail.com');
+        alert('Skopiuj ręcznie i wyślij na: \nEmail: perfumydekant@gmail.com\nWhatsApp: +48 517 240 800\nPrywatną wiadomością na Wykopie: QuDos');
     });
 }
 
