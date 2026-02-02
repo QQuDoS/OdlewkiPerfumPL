@@ -145,6 +145,18 @@
       "price": 6.0,
       "id": 75126,
       "url": "https://www.fragrantica.pl/perfumy/Giorgio-Armani/Armani-Code-Parfum-75126.html"
+    },
+    {
+      "name": "Jean Paul Gaultier Scandal Pour Homme Elixir",
+      "price": 5.5,
+      "id": 121453,
+      "url": "https://www.fragrantica.pl/perfumy/Jean-Paul-Gaultier/Scandal-Pour-Homme-Elixir-121453.html"
+    },
+    {
+      "name": "Chanel Bleu de Chanel Parfum",
+      "price": 7.0,
+      "id": 49912,
+      "url": "https://www.fragrantica.pl/perfumy/Chanel/Bleu-de-Chanel-Parfum-49912.html"
     }
   ]
 }
