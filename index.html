@@ -414,7 +414,7 @@ async function loadData() {
                             </select>
                         </label>
                     </div>
-                    <button class="add-btn" onclick="addToCart(${item.id}, '${item.name}', ${item.price})">Dodaj do koszyka</button>
+                    <button class="add-btn" onclick="addToCart(${item.id}, ${JSON.stringify(item.name)}, ${item.price})">Dodaj do koszyka</button>
                 </div>
             </div>
         `;
