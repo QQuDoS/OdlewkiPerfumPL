@@ -414,7 +414,7 @@ async function loadData() {
                             </select>
                         </label>
                     </div>
-                    <button class="add-btn" onclick='addToCart(${item.id}, "${item.name.replace(/"/g, '\\"')}", ${item.price})'>Dodaj do koszyka</button>
+                    <button class="add-btn" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Dodaj do koszyka</button>
                 </div>
             </div>
         `;
@@ -427,6 +427,16 @@ async function loadData() {
     // Męskie
     document.getElementById("male-grid").innerHTML =
         data.male.map(createCard).join("");
+    
+    // Event listener dla przycisków "Dodaj do koszyka"
+    document.querySelectorAll('.add-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const id = parseInt(this.dataset.id);
+            const name = this.dataset.name;
+            const price = parseFloat(this.dataset.price);
+            addToCart(id, name, price);
+        });
+    });
     
     // Zaktualizuj wyświetlanie cen wysyłki
     updateCartDisplay();
