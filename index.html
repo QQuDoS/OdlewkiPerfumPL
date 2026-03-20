@@ -45,6 +45,11 @@
         .sizes { font-size: 14px; color: #444; margin-bottom: 15px; }
         .add-btn { background: #d4af37; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .add-btn:hover { background: #b89d2f; }
+        .search-box { background: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .search-box input { width: 100%; padding: 12px 15px; font-size: 16px; border: 2px solid #d4af37; border-radius: 8px; box-sizing: border-box; }
+        .search-box input:focus { outline: none; border-color: #b89d2f; box-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
+        .search-box input::placeholder { color: #999; }
+        .no-results { text-align: center; padding: 40px 20px; color: #666; font-size: 18px; }
         .shipping { background: #fff3cd; padding: 20px; border-radius: 10px; margin-top: 40px; }
         .contact { background: #222; color: white; padding: 30px; margin-top: 50px; text-align: center; }
         .contact a { color: #ffd700; font-weight: bold; }
@@ -146,11 +151,17 @@
 
     <div id="shipping-box" class="shipping"></div>
 
-    <h2>Damskie</h2>
-    <div id="female-grid" class="grid"></div>
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="🔍 Wyszukaj po nazwie zapachu..." onkeyup="filterProducts()">
+    </div>
 
-    <h2>Męskie</h2>
+    <h2 id="female-title">Damskie</h2>
+    <div id="female-grid" class="grid"></div>
+    <div id="female-no-results" class="no-results" style="display: none;">Brak wyników dla zapachy damskich</div>
+
+    <h2 id="male-title">Męskie</h2>
     <div id="male-grid" class="grid"></div>
+    <div id="male-no-results" class="no-results" style="display: none;">Brak wyników dla zapachy męskich</div>
 
 </div>
 
@@ -172,6 +183,8 @@
 <script>
 let cart = [];
 let data = {};
+let allFemaleCards = [];
+let allMaleCards = [];
 
 function openCart() {
     document.getElementById('cart-modal').style.display = 'flex';
@@ -421,14 +434,67 @@ async function loadData() {
     }
 
     // Damskie
+    allFemaleCards = data.female;
     document.getElementById("female-grid").innerHTML =
         data.female.map(createCard).join("");
 
     // Męskie
+    allMaleCards = data.male;
     document.getElementById("male-grid").innerHTML =
         data.male.map(createCard).join("");
     
     // Event listener dla przycisków "Dodaj do koszyka"
+    attachAddToCartListeners();
+    
+    // Zaktualizuj wyświetlanie cen wysyłki
+    updateCartDisplay();
+}
+
+function filterProducts() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+    
+    // Filtruj damskie
+    const filteredFemale = allFemaleCards.filter(item => 
+        item.name.toLowerCase().includes(searchTerm)
+    );
+    
+    const femaleGrid = document.getElementById('female-grid');
+    const femaleNoResults = document.getElementById('female-no-results');
+    const femaleTitle = document.getElementById('female-title');
+    
+    if (filteredFemale.length === 0 && searchTerm !== '') {
+        femaleGrid.innerHTML = '';
+        femaleNoResults.style.display = 'block';
+        femaleTitle.style.display = 'none';
+    } else {
+        femaleGrid.innerHTML = filteredFemale.map(createCard).join('');
+        femaleNoResults.style.display = 'none';
+        femaleTitle.style.display = searchTerm ? 'block' : 'block';
+        attachAddToCartListeners();
+    }
+    
+    // Filtruj męskie
+    const filteredMale = allMaleCards.filter(item => 
+        item.name.toLowerCase().includes(searchTerm)
+    );
+    
+    const maleGrid = document.getElementById('male-grid');
+    const maleNoResults = document.getElementById('male-no-results');
+    const maleTitle = document.getElementById('male-title');
+    
+    if (filteredMale.length === 0 && searchTerm !== '') {
+        maleGrid.innerHTML = '';
+        maleNoResults.style.display = 'block';
+        maleTitle.style.display = 'none';
+    } else {
+        maleGrid.innerHTML = filteredMale.map(createCard).join('');
+        maleNoResults.style.display = 'none';
+        maleTitle.style.display = searchTerm ? 'block' : 'block';
+        attachAddToCartListeners();
+    }
+}
+
+function attachAddToCartListeners() {
     document.querySelectorAll('.add-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const id = parseInt(this.dataset.id);
@@ -437,9 +503,6 @@ async function loadData() {
             addToCart(id, name, price);
         });
     });
-    
-    // Zaktualizuj wyświetlanie cen wysyłki
-    updateCartDisplay();
 }
 
 loadData();
