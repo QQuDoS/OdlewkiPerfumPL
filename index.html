@@ -393,46 +393,6 @@ async function loadData() {
         <strong>Flakony 3/5/10 ml = +${data.shipping.bottles} zł</strong>
     `;
 
-    // Funkcja generująca kartę
-    function createCard(item) {
-        const img = `https://fimgs.net/mdimg/perfume/375x500.${item.id}.jpg`;
-        return `
-            <div class="card">
-                <img src="${img}">
-                <div class="name"><a href="${item.url}" target="_blank">${item.name}</a></div>
-                <div class="price">${item.price} zł/ml</div>
-                <div class="sizes">
-                    3 ml: ${(item.price * 3).toFixed(1)} zł<br>
-                    5 ml: ${(item.price * 5).toFixed(1)} zł<br>
-                    10 ml: ${(item.price * 10).toFixed(1)} zł
-                </div>
-                <div class="add-to-cart-section">
-                    <div class="size-select">
-                        <label>Wielkość: 
-                            <select id="size-${item.id}">
-                                <option value="3">3 ml</option>
-                                <option value="5">5 ml</option>
-                                <option value="10">10 ml</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="size-select">
-                        <label>Ilość: 
-                            <select id="qty-${item.id}">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </label>
-                    </div>
-                    <button class="add-btn" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Dodaj do koszyka</button>
-                </div>
-            </div>
-        `;
-    }
-
     // Damskie
     allFemaleCards = data.female;
     document.getElementById("female-grid").innerHTML =
@@ -451,6 +411,11 @@ async function loadData() {
 }
 
 function filterProducts() {
+    // Sprawdzenie, czy dane zostały załadowane
+    if (!allFemaleCards || allFemaleCards.length === 0) {
+        return;
+    }
+    
     const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
     
     // Filtruj damskie
@@ -469,7 +434,7 @@ function filterProducts() {
     } else {
         femaleGrid.innerHTML = filteredFemale.map(createCard).join('');
         femaleNoResults.style.display = 'none';
-        femaleTitle.style.display = searchTerm ? 'block' : 'block';
+        femaleTitle.style.display = 'block';
         attachAddToCartListeners();
     }
     
@@ -489,7 +454,7 @@ function filterProducts() {
     } else {
         maleGrid.innerHTML = filteredMale.map(createCard).join('');
         maleNoResults.style.display = 'none';
-        maleTitle.style.display = searchTerm ? 'block' : 'block';
+        maleTitle.style.display = 'block';
         attachAddToCartListeners();
     }
 }
@@ -506,6 +471,45 @@ function attachAddToCartListeners() {
 }
 
 loadData();
+
+function createCard(item) {
+    const img = `https://fimgs.net/mdimg/perfume/375x500.${item.id}.jpg`;
+    return `
+        <div class="card">
+            <img src="${img}">
+            <div class="name"><a href="${item.url}" target="_blank">${item.name}</a></div>
+            <div class="price">${item.price} zł/ml</div>
+            <div class="sizes">
+                3 ml: ${(item.price * 3).toFixed(1)} zł<br>
+                5 ml: ${(item.price * 5).toFixed(1)} zł<br>
+                10 ml: ${(item.price * 10).toFixed(1)} zł
+            </div>
+            <div class="add-to-cart-section">
+                <div class="size-select">
+                    <label>Wielkość: 
+                        <select id="size-${item.id}">
+                            <option value="3">3 ml</option>
+                            <option value="5">5 ml</option>
+                            <option value="10">10 ml</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="size-select">
+                    <label>Ilość: 
+                        <select id="qty-${item.id}">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </label>
+                </div>
+                <button class="add-btn" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">Dodaj do koszyka</button>
+            </div>
+        </div>
+    `;
+}
 </script>
 
 </body>
