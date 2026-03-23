@@ -435,7 +435,6 @@ function filterProducts() {
         femaleGrid.innerHTML = filteredFemale.map(createCard).join('');
         femaleNoResults.style.display = 'none';
         femaleTitle.style.display = 'block';
-        attachAddToCartListeners();
     }
     
     // Filtruj męskie
@@ -455,8 +454,10 @@ function filterProducts() {
         maleGrid.innerHTML = filteredMale.map(createCard).join('');
         maleNoResults.style.display = 'none';
         maleTitle.style.display = 'block';
-        attachAddToCartListeners();
     }
+    
+    // Przypisz listenery tylko raz na koniec
+    attachAddToCartListeners();
 }
 
 function attachAddToCartListeners() {
