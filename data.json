@@ -153,10 +153,16 @@
       "url": "https://www.fragrantica.pl/perfumy/Rabanne/Million-Gold-Elixir-102755.html"
     },
     {
-      "name": "Prada Paradigme",
+      "name": "Prada Paradigme Eau de Parfum",
       "price": 5.0,
       "id": 110661,
       "url": "https://www.fragrantica.pl/perfumy/Prada/Paradigme-110661.html"
+    },
+    {
+      "name": "Prada Paradigme Le Parfum",
+      "price": 6.5,
+      "id": 132417,
+      "url": "https://www.fragrantica.pl/perfumy/Prada/Paradigme-Le-Parfum-132417.html"
     },
     {
       "name": "Terre d'Hermes Eau Givree",
