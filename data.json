@@ -111,6 +111,12 @@
       "url": "https://www.fragrantica.pl/perfumy/Chanel/Bleu-de-Chanel-Parfum-49912.html"
     },
     {
+      "name": "Dior Sauvage Eau de Parfum",
+      "price": 6.0,
+      "id": 48100,
+      "url": "https://www.fragrantica.pl/perfumy/Dior/Sauvage-Eau-de-Parfum-48100.html"
+    },
+    {
       "name": "Dior Sauvage Elixir",
       "price": 9.0,
       "id": 68415,
@@ -142,7 +148,7 @@
     },
     {
       "name": "Jean Paul Gaultier Scandal Pour Homme Elixir",
-      "price": 5.5,
+      "price": 5.0,
       "id": 121453,
       "url": "https://www.fragrantica.pl/perfumy/Jean-Paul-Gaultier/Scandal-Pour-Homme-Elixir-121453.html"
     },
@@ -151,6 +157,12 @@
       "price": 5.5,
       "id": 102755,
       "url": "https://www.fragrantica.pl/perfumy/Rabanne/Million-Gold-Elixir-102755.html"
+    },
+    {
+      "name": "Prada Luna Rosa Ocean Eau De Parfum",
+      "price": 4.7,
+      "id": 81280,
+      "url": "https://www.fragrantica.pl/perfumy/Prada/Luna-Rossa-Ocean-Eau-de-Parfum-81280.html"
     },
     {
       "name": "Prada Paradigme Eau de Parfum",
